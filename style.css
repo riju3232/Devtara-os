@@ -1,2 +1,16 @@
-body { font-family: sans-serif; text-align: center; padding-top: 50px; }
-#status { color: blue; }
+/* This makes sure the login view is always visible */
+#loginView {
+    display: block !important;
+}
+
+/* This is a simple style for your inputs */
+input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+}
