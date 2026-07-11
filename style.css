@@ -1,16 +1,64 @@
-/* This makes sure the login view is always visible */
-#loginView {
-    display: block !important;
+/* --- General Layout --- */
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    text-align: center; 
+    background: #f4f7f6; 
+    margin: 0; 
+    padding: 20px; 
 }
 
-/* This is a simple style for your inputs */
-input {
-    display: block;
-    margin: 10px auto;
-    padding: 10px;
+.app-container { 
+    max-width: 450px; 
+    margin: auto; 
 }
 
-button {
-    padding: 10px 20px;
-    cursor: pointer;
+/* --- Cards & Dashboard --- */
+.view-card { 
+    background: white; 
+    padding: 20px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+    margin-top: 20px; 
 }
+
+/* Force login visibility so you aren't stuck on a blank screen */
+#loginView { display: block !important; }
+
+/* --- Inputs & Buttons --- */
+input, select { 
+    width: 100%; 
+    padding: 12px; 
+    margin: 10px 0; 
+    border: 1px solid #ddd; 
+    border-radius: 6px; 
+    box-sizing: border-box; 
+    font-size: 16px;
+}
+
+button { 
+    width: 100%; 
+    padding: 12px; 
+    margin: 5px 0; 
+    border: none; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    transition: background 0.3s;
+}
+
+button:hover { opacity: 0.9; }
+
+.btn-primary { background: #007bff; color: white; }
+.btn-success { background: #28a745; color: white; }
+.btn-danger { background: #dc3545; color: white; }
+.btn-logout { background: #6c757d; color: white; width: auto; padding: 5px 15px; }
+
+/* --- Header & Nav --- */
+.header-content { display: flex; justify-content: space-between; align-items: center; }
+#navBar { display: flex; gap: 5px; margin-top: 15px; }
+#navBar button { font-size: 13px; padding: 8px; }
+
+/* --- Dashboard Table --- */
+table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
+th, td { border: 1px solid #eee; padding: 8px; text-align: left; }
+th { background: #f8f9fa; }

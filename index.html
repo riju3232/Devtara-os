@@ -1,10 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevtaraOS</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 id="status">Loading...</h1>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header id="appHeader" style="display:none;">
+            <div class="header-content">
+                <h2>👑 DevtaraOS</h2>
+                <button onclick="logout()" class="btn-logout">Logout</button>
+            </div>
+            <nav id="navBar">
+                <button onclick="showView('saleView')">🛒 Sale</button>
+                <button onclick="showView('expenseView')">💸 Exp</button>
+                <button onclick="showView('dashView')">📊 Dashboard</button>
+            </nav>
+        </header>
+
+        <!-- 1. LOGIN SCREEN -->
+        <div id="loginView" class="view-card">
+            <h1>🔒 System Login</h1>
+            <input type="text" id="loginUser" placeholder="Username">
+            <input type="password" id="loginPass" placeholder="Password">
+            <button onclick="attemptLogin()" class="btn-primary">Unlock</button>
+        </div>
+
+        <!-- 2. SALE ENTRY -->
+        <div id="saleView" class="view-card" style="display:none;">
+            <h3>🛒 Record Sale</h3>
+            <select id="saleShop">
+                <option value="Beauty Parlor">Beauty Parlor</option>
+                <option value="Apparels Emporium">Apparels Emporium</option>
+                <option value="Fine Dine Restaurant">Fine Dine Restaurant</option>
+            </select>
+            <input type="number" id="saleAmount" placeholder="Amount (₹)">
+            <button onclick="submitSale()" class="btn-success">Save Sale</button>
+        </div>
+
+        <!-- 3. EXPENSE ENTRY -->
+        <div id="expenseView" class="view-card" style="display:none;">
+            <h3>💸 Record Expense</h3>
+            <select id="expShop" onchange="handleExpShopChange()">
+                <option value="Beauty Parlor">Beauty Parlor</option>
+                <option value="Apparels Emporium">Apparels Emporium</option>
+                <option value="Fine Dine Restaurant">Fine Dine Restaurant</option>
+            </select>
+            <select id="expCategory"></select>
+            <input type="number" id="expAmount" placeholder="Amount (₹)">
+            <input type="text" id="expRemarks" placeholder="Remarks">
+            <button onclick="submitExpense()" class="btn-danger">Save Expense</button>
+        </div>
+
+        <!-- 4. DASHBOARD -->
+        <div id="dashView" class="view-card" style="display:none;">
+            <h3>📊 Hisab</h3>
+            <div class="dash-grid"></div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
