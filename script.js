@@ -1,20 +1,21 @@
-// REPLACE THIS URL WITH YOUR WEB APP URL (ENDING IN /exec)
-const WEB_APP_URL = "https://script.google.com/macros/library/d/1ZhM7nDTtDcKB8E58WFUmxarICLuYtdeoVBA9NK-PW6NOpLe9GYdlcyqB/20"; 
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyzV8WPyxvM2eV8quYrPvYAk05H-0r5MdCDdRuirfWjGcDfQO21_LnSyRRXKX-NOqQ2/exec"; 
 let currentUser = null;
 
 // --- LOGIN ---
 function attemptLogin() {
-    const user = document.getElementById("loginUser").value;
-    const pass = document.getElementById("loginPass").value;
+    const user = document.getElementById("loginUser").value.trim();
+    const pass = document.getElementById("loginPass").value.trim();
+    if(!user || !pass) { alert("Enter login details"); return; }
+    
     fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "login", username: user, password: pass }) })
     .then(r => r.json()).then(d => {
         if(d.status === "success") { 
             currentUser = d.user; 
-            document.getElementById("loginView").style.display="none"; 
-            document.getElementById("appHeader").style.display="block"; 
+            document.getElementById("loginView").style.display = "none"; 
+            document.getElementById("appHeader").style.display = "block"; 
             showView('saleView'); 
         } else { alert(d.message); }
-    });
+    }).catch(e => alert("Connection error"));
 }
 
 // --- CATEGORY FILTERING ---
@@ -34,14 +35,16 @@ function loadDashboard() {
     fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "getDashboard", username: currentUser.name }) })
     .then(r => r.json()).then(d => {
         const grid = document.querySelector(".dash-grid"); 
-        grid.innerHTML = "<h3>📊 Hisab</h3><table style='width:100%'><tr><th>Shop</th><th>Amt</th><th>Rem</th><th>Save</th></tr>";
+        grid.innerHTML = "<h3>📊 Hisab</h3>";
+        
+        let html = "<table style='width:100%; border-collapse:collapse;'><tr><th>Shop</th><th>Amt</th><th>Rem</th><th>Save</th></tr>";
         d.logs.forEach((l, i) => {
-            grid.innerHTML += `<tr><td>${l.shop}</td>
+            html += `<tr><td>${l.shop}</td>
                 <td><input type="number" id="amt_${l.index}" value="${l.amt}" style="width:50px"></td>
                 <td><input type="text" id="rem_${l.index}" value="${l.rem}" style="width:60px"></td>
                 <td><button onclick="saveEdit(${l.index})">Save</button></td></tr>`;
         });
-        grid.innerHTML += "</table>";
+        grid.innerHTML += html + "</table>";
     });
 }
 
@@ -52,14 +55,20 @@ function saveEdit(index) {
     .then(() => { alert("Updated!"); loadDashboard(); });
 }
 
-// --- DATA SUBMISSION ---
+// --- SUBMISSIONS ---
 function submitSale() {
-    fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "recordSale", user: currentUser.name, shop: document.getElementById("saleShop").value, amount: document.getElementById("saleAmount").value, method: "Cash", remarks: "" }) })
+    const shop = document.getElementById("saleShop").value;
+    const amt = document.getElementById("saleAmount").value;
+    fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "recordSale", user: currentUser.name, shop: shop, amount: amt, method: "Cash", remarks: "" }) })
     .then(() => alert("Sale Saved"));
 }
 
 function submitExpense() {
-    fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "recordExpense", user: currentUser.name, shop: document.getElementById("expShop").value, category: document.getElementById("expCategory").value, amount: document.getElementById("expAmount").value, remarks: document.getElementById("expRemarks").value }) })
+    const shop = document.getElementById("expShop").value;
+    const cat = document.getElementById("expCategory").value;
+    const amt = document.getElementById("expAmount").value;
+    const rem = document.getElementById("expRemarks").value;
+    fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify({ action: "recordExpense", user: currentUser.name, shop: shop, category: cat, amount: amt, remarks: rem }) })
     .then(() => alert("Expense Saved"));
 }
 
@@ -68,5 +77,7 @@ function showView(id) {
     document.querySelectorAll(".view-card").forEach(c => c.style.display="none");
     document.getElementById(id).style.display="block";
     if(id === 'dashView') loadDashboard();
+    else if(id === 'expenseView') handleExpShopChange();
 }
+
 function logout() { location.reload(); }
