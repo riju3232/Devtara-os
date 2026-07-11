@@ -1,0 +1,29 @@
+/* --- GLOBAL APP STYLING --- */
+body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f4; margin: 0; padding: 10px; color: #333; }
+.app-container { max-width: 450px; margin: auto; background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+/* --- NAVIGATION --- */
+header { margin-bottom: 20px; }
+.header-content { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+nav { display: flex; gap: 5px; }
+nav button { flex: 1; padding: 10px; font-size: 14px; font-weight: bold; border-radius: 6px; background: #2c3e50; color: #fff; border: none; cursor: pointer; }
+
+/* --- FORMS & INPUTS --- */
+.view-card { display: none; }
+input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+button { width: 100%; padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 5px; }
+
+/* --- COLORS --- */
+.btn-primary { background: #3498db; color: #fff; }
+.btn-success { background: #27ae60; color: #fff; }
+.btn-danger { background: #e74c3c; color: #fff; }
+.btn-logout { width: auto; padding: 5px 10px; font-size: 12px; background: #95a5a6; color: white; }
+
+/* --- DASHBOARD & TABLES --- */
+.dash-grid { display: grid; gap: 10px; margin-top: 20px; }
+.card { background: #f9f9f9; border: 1px solid #eee; padding: 15px; border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 15px; }
+th { background: #eee; padding: 10px; text-align: left; }
+td { padding: 10px; border-bottom: 1px solid #eee; }
+td input { padding: 5px; width: 60px; }
+td button { padding: 5px 10px; font-size: 12px; }
